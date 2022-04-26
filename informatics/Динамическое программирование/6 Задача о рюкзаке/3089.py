@@ -10,6 +10,9 @@ for i in range(M + 1):
 
 for i in range(1, N):
     for j in range(M + 1):
-        W[i][j] = max(W[i - 1][j], W[i - 1][j - m[i]] + c[i])
+        if j - m[i] >= 0:
+            W[i][j] = max(W[i - 1][j], W[i - 1][j - m[i]] + c[i])
+        else:
+            W[i][j] = W[i - 1][j]
 
-print(W)
+print(W[-1][-1])
