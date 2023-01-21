@@ -1,18 +1,13 @@
-N, M = [int(x) for x in input().split()] #N - кол-во предметов, M - максимальный вес
-m = [int(x) for x in input().split()]
-c = [int(x) for x in input().split()]
+N, M = [int(x) for x in input().split()]
+m = [0] + [int(x) for x in input().split()]
+c = [0] + [int(x) for x in input().split()]
+dp = [[0] * (M + 1) for _ in range(N + 1)]
 
-W = [[0 for _ in range(M + 1)] for _ in range(N)]
-for i in range(M + 1):
-    first_line = W[0]
-    if i >= m[0] and m[0] <= M:
-        first_line[i] = c[0]
+for i in range(1, N + 1):
+    for j in range(0, M + 1):
+        dp[i][j] = dp[i - 1][j]
+        if m[i] <= j:
+            dp[i][j] = max(dp[i][j], dp[i - 1][j - m[i]] + c[i])
 
-for i in range(1, N):
-    for j in range(M + 1):
-        if j - m[i] >= 0:
-            W[i][j] = max(W[i - 1][j], W[i - 1][j - m[i]] + c[i])
-        else:
-            W[i][j] = W[i - 1][j]
+print(max(dp[N]))
 
-print(W[-1][-1])
