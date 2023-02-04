@@ -1,10 +1,8 @@
 n = int(input())
 a = [int(x) for x in input().split()]
-v = [0] * n
-
-for i in range(n):
-    v[i] = 1
+d = [1] * len(a)
+for i in range(1, len(a)):
     for j in range(i):
         if a[j] < a[i]:
-            v[i] = max(v[i], v[j] + 1)
-print(max(v))
+            d[i] = max(d[i], 1 + d[j])
+print(max(d))
